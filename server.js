@@ -2,9 +2,17 @@
 
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 const nodemailer = require('nodemailer');
 
 const app = express();
+
+// Autoriser CORS depuis le front (défini en variable d'environnement CORS_ORIGIN)
+app.use(cors({
+  origin: process.env.CORS_ORIGIN || '*'
+}));
+
+// Parser le JSON des requêtes
 app.use(express.json());
 
 // Création du transporteur SMTP
@@ -60,4 +68,5 @@ const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Serveur en écoute sur le port ${PORT}`);
 });
+
 
